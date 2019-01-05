@@ -1,14 +1,15 @@
-import { createStackNavigator, createAppContainer, createDrawerNavigator } from "react-navigation";
+import { createStackNavigator, createAppContainer, createDrawerNavigator, createSwitchNavigator } from "react-navigation";
 import StackOneComponent from './src/stackComponent/StackOne';
 import StackTwoComponent from './src/stackComponent/StackTwo';
 import StackThreeComponent from './src/stackComponent/StackThree';
 import DrawerOneComponent from './src/drawerComponent/DrawerOne';
 import DrawerTwoComponent from './src/drawerComponent/DrawerTwo';
 import DrawerThreeComponent from './src/drawerComponent/DrawerThree';
+import SideMenu from "./src/SideMenu";
 
-const DrawerOneStackNavigator = createStackNavigator({
-  DrawerOne: {
-    screen: DrawerOneComponent
+const AuthenticationStack = createStackNavigator({
+  StackOne: {
+    screen: StackOneComponent
   },
   StackTwo: {
     screen: StackTwoComponent
@@ -16,14 +17,11 @@ const DrawerOneStackNavigator = createStackNavigator({
   StackThree: {
     screen: StackThreeComponent
   }
-},{
-  headerMode: 'none',
-});
+})
 
-
-const DrawerNavigator = createDrawerNavigator({
+const MainStack = createStackNavigator({
   DrawerOne1: {
-    screen: DrawerOneStackNavigator
+    screen: DrawerOneComponent
   },
   DrawerTwo: {
     screen: DrawerTwoComponent
@@ -31,19 +29,23 @@ const DrawerNavigator = createDrawerNavigator({
   DrawerThree: {
     screen: DrawerThreeComponent
   }
-});
+})
 
 
 
-const MainStackNavigator = createStackNavigator({
-  StackOne: {
-    screen: StackOneComponent
-  },
-  Drawer: {
-    screen: DrawerNavigator
-  }
-});
+const SwitchNavigator = createSwitchNavigator({
+  AuthenticationStack: AuthenticationStack,
+  MainStack: MainStack
+})
 
 
+const AppRouter = createDrawerNavigator({
+  SwitchNavigator: SwitchNavigator
+},{
+  drawerType : 'slide',
+  contentComponent: SideMenu,
+  drawerLockMode: "locked-closed"
+})
 
-export default createAppContainer(MainStackNavigator);
+
+export default createAppContainer(AppRouter);

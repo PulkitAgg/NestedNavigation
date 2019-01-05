@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 export default class StackTwoComponent extends React.Component {
   goTo() {
     console.warn('in goto');
+    this.props.navigation.navigate('StackThree');
   }
 
   render() {

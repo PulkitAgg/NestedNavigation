@@ -4,7 +4,11 @@ import { View, Text, TouchableOpacity } from "react-native";
 export default class StackOneComponent extends React.Component {
   goTo() {
     console.warn('in goto');
-    this.props.navigation.navigate('Drawer');
+    this.props.navigation.navigate('StackTwo');
+  }
+
+  goToLogin() {
+    this.props.navigation.navigate('MainStack');
   }
 
   render() {
@@ -13,6 +17,10 @@ export default class StackOneComponent extends React.Component {
         <Text>StackOneComponent</Text>
         <TouchableOpacity onPress={() => this.goTo()} >
         <Text> Go </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => this.goToLogin()} >
+        <Text> Login </Text>
         </TouchableOpacity>
       </View>
     );
